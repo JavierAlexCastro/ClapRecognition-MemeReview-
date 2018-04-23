@@ -3,6 +3,7 @@ import struct
 import math
 import time
 import winsound
+import os
 
 #adjust as needed
 INITIAL_TAP_THRESHOLD = 0.10
@@ -59,8 +60,10 @@ def increase_count(time):
        CLAP=time
     elif((time-CLAP)<=2): #if second clap within 2 seconds of first one
         print("meme review!")
-        #put your path in here
-        winsound.PlaySound('C:/Users/User/Documents/ClapRecognition-MemeReview-/'+SOUND_LIST[SOUND_COUNT%5], winsound.SND_FILENAME)
+        #get cwd and play sounds on same directory
+        script_dir = os.path.dirname(__file__)
+        abs_file_path = os.path.join(script_dir, SOUND_LIST[SOUND_COUNT%5])
+        winsound.PlaySound(abs_file_path, winsound.SND_FILENAME)
         SOUND_COUNT+=1
         CLAP=0 #reset clap counter
     else: #second clap more than 2 seconds apart from first clap
